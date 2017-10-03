@@ -2,32 +2,21 @@
 import {createStore} from 'redux';
 // books reducers
 
-export function booksReducers(state=
-  {
-    books:
-    [{
-      _id: 1,
-      title: 'this is the title yo',
-      description: 'said this is the description, jo!',
-      price: 10.5
-    },
-    {
-      _id: 2,
-      title: 'second title',
-      description: 'second description!',
-      price: 15
-    }]
+export function booksReducers(state={
+    books:[]
   }, action){
   switch (action.type){
 
     case "GET_BOOKS":
-      return {...state, books:[...state.books]}
+      // return copy of the state and copy of the books aray from the state
+      // this connects to books: state.books.books in booksForm.
+
+      return {...state, books:[...action.payload]}
       break;
 
-    case "POST_BOOKS":
+    case "POST_BOOK":
       return {books:[...state.books, ...action.payload]}
       break;
-
     case "DELETE_BOOK":
       //create a copy of the current array of books
       const currentBookToDelete = [...state.books]
