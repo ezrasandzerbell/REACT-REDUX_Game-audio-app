@@ -3,6 +3,14 @@
 // CART REDUCERS
 export function cartReducers(state = { cart: [] }, action) {
     switch (action.type) {
+
+        case "GET_CART":
+          return {...state,
+            cart: action.payload,
+            totalAmount: totals(action.payload).amount,
+            totalQty: totals(action.payload).qty
+        }
+
         case "ADD_TO_CART":
             return {...state,
               cart: action.payload,
@@ -18,7 +26,7 @@ export function cartReducers(state = { cart: [] }, action) {
             totalQty: totals(action.payload).qty
           }
             break;
-        case "DELETE_CART_ITEM":
+        case "DELETE_FROM_CART":
             return {...state,
               cart: action.payload,
               totalAmount: totals(action.payload).amount,
