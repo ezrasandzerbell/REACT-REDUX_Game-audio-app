@@ -44,6 +44,8 @@ export function deleteBooks(id){
   }
 }
 
+// Update books
+
 export function updateBooks(book){
   return {
     type:"UPDATE_BOOK",
@@ -51,6 +53,10 @@ export function updateBooks(book){
   }
 }
 
-// Delete books
+// reset book form
 
-// Update books
+export function resetButton(){
+  return {
+    type:"RESET_BUTTON"
+  }
+}

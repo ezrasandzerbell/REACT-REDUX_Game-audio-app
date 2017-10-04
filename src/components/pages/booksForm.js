@@ -5,7 +5,7 @@ import {MenuItem, InputGroup, DropdownButton, Image, Col, Row, Well, Panel, Form
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {postBooks, deleteBooks, getBooks} from '../../actions/booksActions';
+import {postBooks, deleteBooks, getBooks, resetButton} from '../../actions/booksActions';
 import {findDOMNode} from 'react-dom';
 import axios from 'axios';
 
@@ -30,7 +30,6 @@ class BooksForm extends React.Component {
       .catch(function(err){
         this.setState({images:'error loading image files from the server', img: ''})
       })
-      .bind(this)
   }
 
   handleSubmit(){
@@ -55,6 +54,15 @@ class BooksForm extends React.Component {
     })
   }
 
+  resetForm(){
+    // RESET THE Button
+    this.props.resetButton();
+    findDOMNode(this.refs.title).value  = '';
+    findDOMNode(this.refs.description).value  = '';
+    findDOMNode(this.refs.price).value = '';
+    this.setState({img: ''});
+  }
+
   render() {
 
     const booksList = this.props.books.map(function(booksArr){
@@ -73,7 +81,7 @@ class BooksForm extends React.Component {
     return(
       <Well>
         <Row>
-          <Col>
+          <Col xs={12} sm={6}>
             <Panel>
               <InputGroup>
                 <FormControl type="text" ref="image" value={this.state.img}/>
@@ -89,9 +97,9 @@ class BooksForm extends React.Component {
               <Image src={this.state.img} responsive />
             </Panel>
           </Col>
-          <Col>
+          <Col xs={12} sm={6}>
             <Panel>
-              <FormGroup controlId="title">
+              <FormGroup controlId="title" validationState={this.props.validation}>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
                   type="text"
@@ -99,7 +107,7 @@ class BooksForm extends React.Component {
                   ref="title"
                 />
               </FormGroup>
-              <FormGroup controlId="description">
+              <FormGroup controlId="description" validationState={this.props.validation}>
                 <ControlLabel>Description</ControlLabel>
                 <FormControl
                   type="text"
@@ -107,7 +115,7 @@ class BooksForm extends React.Component {
                   ref="description"
                 />
               </FormGroup>
-              <FormGroup controlId="price">
+              <FormGroup controlId="price" validationState={this.props.validation}>
                 <ControlLabel>Price</ControlLabel>
                 <FormControl
                   type="text"
@@ -115,7 +123,11 @@ class BooksForm extends React.Component {
                   ref="price"
                 />
               </FormGroup>
-              <Button onClick={this.handleSubmit.bind(this)} bsStyle='primary'>Save Book</Button>
+              <Button
+              onClick={(!this.props.msg)?(this.handleSubmit.bind(this)):(this.resetForm.bind(this))}
+              bsStyle={(!this.props.style)?("primary"):(this.props.style)}>
+                {(!this.props.msg)?("Save Book"):(this.props.msg)}
+              </Button>
             </Panel>
             <Panel style={{marginTop:'25px'}}>
             <FormGroup controlId="formControlsSelect">
@@ -136,7 +148,10 @@ class BooksForm extends React.Component {
 
 function mapStateToProps(state){
   return {
-    books: state.books.books
+    books: state.books.books,
+    msg: state.books.msg,
+    style: state.books.style,
+    validation: state.books.validation
   }
 }
 
@@ -144,7 +159,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     postBooks,
     deleteBooks,
-    getBooks
+    getBooks,
+    resetButton
   }, dispatch)
 }
 
