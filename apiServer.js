@@ -121,6 +121,28 @@ app.put('/books/:_id', function(req, res){
 
 });
 
+// ---->>> GET BOOKS IMAGES API <<<------
+
+app.get('/images', function(req,res){
+  const imgFolder = __dirname + '/public/images';
+  // require file system
+  const fs = require('fs');
+  // read all files in the directory
+  fs.readdir(imgFolder, function(err, files){
+    if(err){
+      return console.error(err)
+    }
+    // create an empty array
+    const filesArr = [];
+    // iterate all images in the directory and add to the array
+    files.forEach(function(file){
+      filesArr.push({name: file})
+    });
+
+    // send the json response with the array
+    res.json(filesArr)
+  })
+})
 
 // END API
 
