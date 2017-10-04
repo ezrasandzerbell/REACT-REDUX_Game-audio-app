@@ -63,7 +63,7 @@ app.post('/books', function(req, res){
 
   Books.create(book, function(err, books){
     if(err){
-      throw err;
+      console.log("# API DELETE ", err)
     }
     res.json(books);
   })

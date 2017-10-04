@@ -106,6 +106,7 @@ class BooksForm extends React.Component {
                   placeholder="Enter Title"
                   ref="title"
                 />
+                <FormControl.Feedback/>
               </FormGroup>
               <FormGroup controlId="description" validationState={this.props.validation}>
                 <ControlLabel>Description</ControlLabel>
@@ -114,6 +115,7 @@ class BooksForm extends React.Component {
                   placeholder="Enter Description"
                   ref="description"
                 />
+                <FormControl.Feedback/>
               </FormGroup>
               <FormGroup controlId="price" validationState={this.props.validation}>
                 <ControlLabel>Price</ControlLabel>
@@ -122,6 +124,7 @@ class BooksForm extends React.Component {
                   placeholder="Enter Price"
                   ref="price"
                 />
+                <FormControl.Feedback/>
               </FormGroup>
               <Button
               onClick={(!this.props.msg)?(this.handleSubmit.bind(this)):(this.resetForm.bind(this))}
