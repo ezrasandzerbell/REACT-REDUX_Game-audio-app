@@ -20,27 +20,18 @@ import reducers from './reducers/index'
 
 import {addToCart} from './actions/cartActions'
 import {postBooks, deleteBooks, updateBooks} from './actions/booksActions'
+import routes from './routes'
 
 
 //STEP 1 create the store
 const middleware = applyMiddleware(thunk, logger)
-const store = createStore(reducers, middleware);
-
-import BooksList from './components/pages/bookslist';
-import Cart from './components/pages/cart';
-import BooksForm from './components/pages/booksform';
-import Main from './main';
+// We Will pass initial state from server store
+const initialState = window.INITIAL_STATE
+const store = createStore(reducers, initialState, middleware);
 
 const Routes = (
   <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={Main}>
-        <IndexRoute component={BooksList}/>
-        <Route path="/admin" component={BooksForm} />
-        <Route path="/cart" component={Cart} />
-
-      </Route>
-    </Router>
+    {routes}
   </Provider>
 )
 
@@ -48,8 +39,3 @@ const Routes = (
 render(
   Routes, document.getElementById('app')
 );
-
-// STEP 2 create and dispatch actions
-// store.dispatch(postBooks(
-//
-// ))
