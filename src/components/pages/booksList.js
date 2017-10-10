@@ -34,17 +34,17 @@ class BooksList extends React.Component{
         <Row>
         <Carousel>
           <Carousel.Item>
-            <img width={900} height={300} alt="900x300" src="/images/planets.jpg"/>
+            <img width={900} height={300} alt="900x300" src="/images/books-carousel-1.jpg" className="image-dim"/>
             <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <h3>Rare Books</h3>
+              <p>Connect with book dealers and get the best price on rare items.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
-            <img width={900} height={300} alt="900x300" src="/images/planets2.jpg"/>
+            <img width={900} height={300} alt="900x300" src="/images/books-carousel-2.jpg" className="image-dim"/>
             <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h3>Over 10,000 Titles</h3>
+              <p>Use our system to browse a huge library of rare books.</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>

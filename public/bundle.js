@@ -39442,9 +39442,17 @@ var _booksForm = __webpack_require__(257);
 
 var _booksForm2 = _interopRequireDefault(_booksForm);
 
+var _about = __webpack_require__(575);
+
+var _about2 = _interopRequireDefault(_about);
+
 var _main = __webpack_require__(572);
 
 var _main2 = _interopRequireDefault(_main);
+
+var _contactForm = __webpack_require__(576);
+
+var _contactForm2 = _interopRequireDefault(_contactForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39456,7 +39464,9 @@ var routes = _react2.default.createElement(
     { path: '/', component: _main2.default },
     _react2.default.createElement(_reactRouter.IndexRoute, { component: _booksList2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _booksForm2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/contact', component: _contactForm2.default })
   )
 );
 
@@ -39551,38 +39561,38 @@ var BooksList = function (_React$Component) {
             _react2.default.createElement(
               _reactBootstrap.Carousel.Item,
               null,
-              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/planets.jpg' }),
+              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/books-carousel-1.jpg', className: 'image-dim' }),
               _react2.default.createElement(
                 _reactBootstrap.Carousel.Caption,
                 null,
                 _react2.default.createElement(
                   'h3',
                   null,
-                  'First slide label'
+                  'Rare Books'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                  'Connect with book dealers and get the best price on rare items.'
                 )
               )
             ),
             _react2.default.createElement(
               _reactBootstrap.Carousel.Item,
               null,
-              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/planets2.jpg' }),
+              _react2.default.createElement('img', { width: 900, height: 300, alt: '900x300', src: '/images/books-carousel-2.jpg', className: 'image-dim' }),
               _react2.default.createElement(
                 _reactBootstrap.Carousel.Caption,
                 null,
                 _react2.default.createElement(
                   'h3',
                   null,
-                  'Second slide label'
+                  'Over 10,000 Titles'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+                  'Use our system to browse a huge library of rare books.'
                 )
               )
             )
@@ -50932,7 +50942,7 @@ var Menu = function (_React$Component) {
             _react2.default.createElement(
               'a',
               { href: '/' },
-              'React-Bootstrap'
+              'Rare Book App'
             )
           ),
           _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
@@ -50950,7 +50960,7 @@ var Menu = function (_React$Component) {
             ),
             _react2.default.createElement(
               _reactBootstrap.NavItem,
-              { eventKey: 2, href: '/contacts' },
+              { eventKey: 2, href: '/contact' },
               'Contact Us'
             )
           ),
@@ -51040,6 +51050,114 @@ var Footer = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = Footer;
+
+/***/ }),
+/* 575 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var About = function (_React$Component) {
+  _inherits(About, _React$Component);
+
+  function About() {
+    _classCallCheck(this, About);
+
+    return _possibleConstructorReturn(this, (About.__proto__ || Object.getPrototypeOf(About)).apply(this, arguments));
+  }
+
+  _createClass(About, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Info about us"
+        )
+      );
+    }
+  }]);
+
+  return About;
+}(_react2.default.Component);
+
+exports.default = About;
+
+/***/ }),
+/* 576 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Contact = function (_React$Component) {
+  _inherits(Contact, _React$Component);
+
+  function Contact() {
+    _classCallCheck(this, Contact);
+
+    return _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).apply(this, arguments));
+  }
+
+  _createClass(Contact, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "h1",
+          null,
+          "Contact Form"
+        )
+      );
+    }
+  }]);
+
+  return Contact;
+}(_react2.default.Component);
+
+exports.default = Contact;
 
 /***/ })
 /******/ ]);

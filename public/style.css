@@ -26,3 +26,7 @@ button.link {
   outline-offset: 0;
   color: white;
 }
+
+.image-dim {
+  opacity: 0.5;
+}

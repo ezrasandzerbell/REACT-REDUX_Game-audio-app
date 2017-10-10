@@ -11,7 +11,9 @@ import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import BooksList from './components/pages/booksList';
 import Cart from './components/pages/cart';
 import BooksForm from './components/pages/booksForm';
+import About from './components/pages/about';
 import Main from './main';
+import Contact from './components/pages/contactForm';
 
 const routes = (
     <Router history={browserHistory}>
@@ -19,7 +21,8 @@ const routes = (
         <IndexRoute component={BooksList}/>
         <Route path="/admin" component={BooksForm} />
         <Route path="/cart" component={Cart} />
-
+        <Route path="/about" component={About} />
+        <Route path="/contact" component={Contact} />
       </Route>
     </Router>
 );
