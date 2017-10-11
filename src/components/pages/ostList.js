@@ -40,15 +40,15 @@ class OstList extends React.Component{
           <Carousel.Item>
             <img width={900} height={300} alt="900x300" src="/images/books-carousel-1.jpg" className="image-dim"/>
             <Carousel.Caption>
-              <h3>Rare Osts</h3>
-              <p>Connect with ost dealers and get the best price on rare items.</p>
+              <h3>Videogame Soundtrack Library</h3>
+              <p>Connect with OST lovers and discover new game music</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img width={900} height={300} alt="900x300" src="/images/books-carousel-2.jpg" className="image-dim"/>
             <Carousel.Caption>
               <h3>Over 10,000 Titles</h3>
-              <p>Use our system to browse a huge library of rare osts.</p>
+              <p>Use our system to browse a huge library of rare osts</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>

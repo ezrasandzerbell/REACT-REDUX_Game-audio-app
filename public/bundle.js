@@ -11260,6 +11260,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getOsts = getOsts;
 exports.postOst = postOst;
 exports.deleteOst = deleteOst;
+exports.getOst = getOst;
 exports.updateOst = updateOst;
 exports.resetButton = resetButton;
 
@@ -11280,6 +11281,8 @@ function getOsts() {
   };
 }
 
+// Post OST
+
 function postOst(ost) {
   return function (dispatch) {
     _axios2.default.post("/api/osts", ost).then(function (response) {
@@ -11289,18 +11292,26 @@ function postOst(ost) {
     });
   };
 }
-// OLD CODE:
-// return {
-//   type:"POST_OSTS",
-//   payload: ost
-// }
 
+// DELETE OST
 
 function deleteOst(id) {
   return function (dispatch) {
     _axios2.default.delete("/api/osts/" + id).then(function (response) {
       dispatch({ type: "DELETE_OST", payload: id }).catch(function (err) {
         dispatch({ type: "DELETE_OST_REJECTED", payload: err });
+      });
+    });
+  };
+}
+
+// GET OST
+
+function getOst(id) {
+  return function (dispatch) {
+    _axios2.default.get("/api/osts/" + id).then(function (response) {
+      dispatch({ type: "GET_OST", payload: id }).catch(function (err) {
+        dispatch({ type: "GET_OST_REJECTED", payload: err });
       });
     });
   };
@@ -39597,16 +39608,21 @@ var _about = __webpack_require__(574);
 
 var _about2 = _interopRequireDefault(_about);
 
-var _main = __webpack_require__(575);
+var _ostPage = __webpack_require__(575);
+
+var _ostPage2 = _interopRequireDefault(_ostPage);
+
+var _main = __webpack_require__(576);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _contactForm = __webpack_require__(578);
+var _contactForm = __webpack_require__(579);
 
 var _contactForm2 = _interopRequireDefault(_contactForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// React-Router
 var routes = _react2.default.createElement(
   _reactRouter.Router,
   { history: _reactRouter.browserHistory },
@@ -39617,11 +39633,13 @@ var routes = _react2.default.createElement(
     _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _ostForm2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/contact', component: _contactForm2.default })
+    _react2.default.createElement(_reactRouter.Route, { path: '/contact', component: _contactForm2.default }),
+    _react2.default.createElement(_reactRouter.Route, { exact: true, path: '/osts/:_id', render: function render(props) {
+        _react2.default.createElement(_ostPage2.default, { _id: props.match.params._id });
+      } })
   )
 );
 
-// React-Router
 exports.default = routes;
 
 /***/ }),
@@ -39723,12 +39741,12 @@ var OstList = function (_React$Component) {
                 _react2.default.createElement(
                   'h3',
                   null,
-                  'Rare Osts'
+                  'Videogame Soundtrack Library'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Connect with ost dealers and get the best price on rare items.'
+                  'Connect with OST lovers and discover new game music'
                 )
               )
             ),
@@ -39747,7 +39765,7 @@ var OstList = function (_React$Component) {
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Use our system to browse a huge library of rare osts.'
+                  'Use our system to browse a huge library of rare osts'
                 )
               )
             )
@@ -50817,7 +50835,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -50845,135 +50863,146 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var OstItem = function (_React$Component) {
-    _inherits(OstItem, _React$Component);
+  _inherits(OstItem, _React$Component);
 
-    _createClass(OstItem, [{
-        key: 'handleCart',
-        value: function handleCart() {
-            var ost = [].concat(_toConsumableArray(this.props.cart), [{
-                _id: this.props._id,
-                gameTitle: this.props.gameTitle,
-                composer: this.props.composer,
-                publisher: this.props.publishers,
-                releaseDate: this.props.releaseDate,
-                description: this.props.description,
-                trackList: this.props.trackList,
-                images: this.props.images,
-                url: this.props.url,
-                quantity: 1
+  _createClass(OstItem, [{
+    key: 'handleCart',
+    value: function handleCart() {
+      var ost = [].concat(_toConsumableArray(this.props.cart), [{
+        _id: this.props._id,
+        gameTitle: this.props.gameTitle,
+        composer: this.props.composer,
+        publisher: this.props.publishers,
+        releaseDate: this.props.releaseDate,
+        description: this.props.description,
+        trackList: this.props.trackList,
+        images: this.props.images,
+        url: this.props.url,
+        quantity: 1
 
-            }]);
-            // CHECK If cart is empty
-            if (this.props.cart.length > 0) {
-                // cart is not empty
-                var _id = this.props._id;
+      }]);
 
-                var cartIndex = this.props.cart.findIndex(function (cart) {
-                    return cart._id === _id;
-                });
-                // If returns -1 then there are no items with same id
-                if (cartIndex === -1) {
-                    this.props.addToCart(ost);
-                } else {
-                    // Need to update quantity
-                    this.props.updateCart(_id, 1, this.props.cart);
-                }
-            } else {
-                // cart is empty
-                this.props.addToCart(ost);
-            }
+      // CHECK If cart is empty
+      if (this.props.cart.length > 0) {
+        // cart is not empty
+        var _id = this.props._id;
+
+        var cartIndex = this.props.cart.findIndex(function (cart) {
+          return cart._id === _id;
+        });
+        // If returns -1 then there are no items with same id
+        if (cartIndex === -1) {
+          this.props.addToCart(ost);
+        } else {
+          // Need to update quantity
+          this.props.updateCart(_id, 1, this.props.cart);
         }
-    }]);
-
-    function OstItem() {
-        _classCallCheck(this, OstItem);
-
-        var _this = _possibleConstructorReturn(this, (OstItem.__proto__ || Object.getPrototypeOf(OstItem)).call(this));
-
-        _this.state = {
-            isClicked: false
-        };
-        return _this;
+      } else {
+        // cart is empty
+        this.props.addToCart(ost);
+      }
     }
+  }]);
 
-    _createClass(OstItem, [{
-        key: 'onReadMore',
-        value: function onReadMore() {
-            this.setState({ isClicked: true });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                _reactBootstrap.Well,
-                null,
-                _react2.default.createElement(
-                    _reactBootstrap.Row,
-                    null,
-                    _react2.default.createElement(_reactBootstrap.Image, { src: this.props.images, responsive: true })
-                ),
-                _react2.default.createElement(
-                    _reactBootstrap.Row,
-                    { className: 'ostItemText' },
-                    _react2.default.createElement(
-                        'h5',
-                        { className: 'center-text' },
-                        this.props.gameTitle
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'Composer: ',
-                        _react2.default.createElement(
-                            'span',
-                            { className: 'pull-right' },
-                            this.props.composer
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'Released: ',
-                        _react2.default.createElement(
-                            'span',
-                            { className: 'pull-right' },
-                            this.props.releaseDate
-                        )
-                    ),
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        'Published by: ',
-                        _react2.default.createElement(
-                            'span',
-                            { className: 'pull-right' },
-                            this.props.publisher
-                        )
-                    ),
-                    _react2.default.createElement(
-                        _reactBootstrap.Button,
-                        { onClick: this.handleCart.bind(this), className: 'center-button' },
-                        'Buy now!'
-                    )
-                )
-            );
-        }
-    }]);
+  function OstItem() {
+    _classCallCheck(this, OstItem);
 
-    return OstItem;
+    var _this = _possibleConstructorReturn(this, (OstItem.__proto__ || Object.getPrototypeOf(OstItem)).call(this));
+
+    _this.state = {
+      isClicked: false
+    };
+    return _this;
+  }
+
+  _createClass(OstItem, [{
+    key: 'onReadMore',
+    value: function onReadMore() {
+      this.setState({ isClicked: true });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+
+      var current_id = this.props._id;
+      return _react2.default.createElement(
+        _reactBootstrap.Well,
+        null,
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          null,
+          _react2.default.createElement(
+            'a',
+            { href: '/osts/' + current_id },
+            _react2.default.createElement(_reactBootstrap.Image, { src: this.props.images, responsive: true })
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          { className: 'ostItemText' },
+          _react2.default.createElement(
+            'h5',
+            { className: 'center-text' },
+            _react2.default.createElement(
+              'a',
+              { href: 'http://www.google.com' },
+              this.props.gameTitle
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Composer: ',
+            _react2.default.createElement(
+              'span',
+              { className: 'pull-right' },
+              this.props.composer
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Released: ',
+            _react2.default.createElement(
+              'span',
+              { className: 'pull-right' },
+              this.props.releaseDate
+            )
+          ),
+          _react2.default.createElement(
+            'p',
+            null,
+            'Published by: ',
+            _react2.default.createElement(
+              'span',
+              { className: 'pull-right' },
+              this.props.publisher
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Button,
+            { onClick: this.handleCart.bind(this), className: 'center-button' },
+            'Buy now!'
+          )
+        )
+      );
+    }
+  }]);
+
+  return OstItem;
 }(_react2.default.Component);
 
 function mapStateToProps(state) {
-    return {
-        cart: state.cart.cart
-    };
+  return {
+    cart: state.cart.cart
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-    return (0, _redux.bindActionCreators)({
-        addToCart: _cartActions.addToCart,
-        updateCart: _cartActions.updateCart
-    }, dispatch);
+  return (0, _redux.bindActionCreators)({
+    addToCart: _cartActions.addToCart,
+    updateCart: _cartActions.updateCart
+  }, dispatch);
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(OstItem);
@@ -51065,11 +51094,98 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _menu = __webpack_require__(576);
+var _reactRedux = __webpack_require__(43);
+
+var _redux = __webpack_require__(27);
+
+var _ostActions = __webpack_require__(127);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var OstPage = function (_React$Component) {
+  _inherits(OstPage, _React$Component);
+
+  function OstPage() {
+    _classCallCheck(this, OstPage);
+
+    return _possibleConstructorReturn(this, (OstPage.__proto__ || Object.getPrototypeOf(OstPage)).apply(this, arguments));
+  }
+
+  _createClass(OstPage, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Testing123'
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Testing123'
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Testing123'
+        ),
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Testing123'
+        )
+      );
+    }
+  }]);
+
+  return OstPage;
+}(_react2.default.Component);
+
+function mapStateToProps(state) {
+  return {
+    osts: state.osts.osts
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return (0, _redux.bindActionCreators)({
+    getOst: _ostActions.getOst
+  }, dispatch);
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(OstPage);
+
+/***/ }),
+/* 576 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _menu = __webpack_require__(577);
 
 var _menu2 = _interopRequireDefault(_menu);
 
-var _footer = __webpack_require__(577);
+var _footer = __webpack_require__(578);
 
 var _footer2 = _interopRequireDefault(_footer);
 
@@ -51132,7 +51248,7 @@ function mapDispatchToProps(dispatch) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Main);
 
 /***/ }),
-/* 576 */
+/* 577 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51182,7 +51298,7 @@ var Menu = function (_React$Component) {
             _react2.default.createElement(
               'a',
               { href: '/' },
-              'Rare Book App'
+              'Game OST Library'
             )
           ),
           _react2.default.createElement(_reactBootstrap.Navbar.Toggle, null)
@@ -51234,7 +51350,7 @@ var Menu = function (_React$Component) {
 exports.default = Menu;
 
 /***/ }),
-/* 577 */
+/* 578 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51292,7 +51408,7 @@ var Footer = function (_React$Component) {
 exports.default = Footer;
 
 /***/ }),
-/* 578 */
+/* 579 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

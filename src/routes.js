@@ -12,6 +12,7 @@ import OstList from './components/pages/ostList';
 import Cart from './components/pages/cart';
 import OstForm from './components/pages/ostForm';
 import About from './components/pages/about';
+import OstPage from './components/pages/ostPage';
 import Main from './main';
 import Contact from './components/pages/contactForm';
 
@@ -23,6 +24,9 @@ const routes = (
         <Route path="/cart" component={Cart} />
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
+        <Route exact path="/osts/:_id" render={(props)=>{
+            <OstPage _id={props.match.params._id}/>
+        }} />
       </Route>
     </Router>
 );

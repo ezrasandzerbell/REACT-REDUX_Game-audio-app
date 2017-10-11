@@ -21,6 +21,7 @@ class OstItem extends React.Component {
             quantity:1
 
         }];
+
         // CHECK If cart is empty
         if(this.props.cart.length > 0){
           // cart is not empty
@@ -55,18 +56,19 @@ class OstItem extends React.Component {
     }
 
     render() {
+
+      const current_id = this.props._id
         return (
             <Well>
                 <Row>
-                  <Image src={this.props.images} responsive/>
+                  <a href={`/osts/${current_id}`}><Image src={this.props.images} responsive/></a>
                 </Row>
                   <Row className="ostItemText">
 
-                        <h5 className="center-text">{this.props.gameTitle}</h5>
+                        <h5 className="center-text"><a href="http://www.google.com">{this.props.gameTitle}</a></h5>
                         <p>Composer: <span className="pull-right">{this.props.composer}</span></p>
                         <p>Released: <span className="pull-right">{this.props.releaseDate}</span></p>
                         <p>Published by: <span className="pull-right">{this.props.publisher}</span></p>
-
 
                         <Button onClick={this.handleCart.bind(this)}  className="center-button">Buy now!</Button>
                 </Row>

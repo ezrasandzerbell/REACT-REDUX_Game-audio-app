@@ -14,6 +14,8 @@ export function getOsts() {
     }
   }
 
+// Post OST
+
 export function postOst(ost) {
   return function(dispatch){
     axios.post("/api/osts", ost)
@@ -25,12 +27,8 @@ export function postOst(ost) {
       })
   }
 }
-// OLD CODE:
-// return {
-//   type:"POST_OSTS",
-//   payload: ost
-// }
 
+// DELETE OST
 
 export function deleteOst(id){
   return function(dispatch){
@@ -39,6 +37,20 @@ export function deleteOst(id){
         dispatch({type:"DELETE_OST", payload:id})
       .catch(function(err){
         dispatch({type:"DELETE_OST_REJECTED", payload:err})
+      })
+      })
+  }
+}
+
+// GET OST
+
+export function getOst(id){
+  return function(dispatch){
+    axios.get("/api/osts/" + id)
+      .then(function(response){
+        dispatch({type:"GET_OST", payload:id})
+      .catch(function(err){
+        dispatch({type:"GET_OST_REJECTED", payload:err})
       })
       })
   }
