@@ -61,6 +61,21 @@ app.use(session({
 // ------>>> END SESSION SET UP <<<---------
 
 var Books = require('./models/books.js');
+var Messages = require('./models/messages.js');
+
+// ------->>> POST MESSAGE <<<-------
+
+app.post('/messages', function(req, res){
+  var fullMessage = req.body;
+
+  Books.create(fullMessage, function(err, allMessages){
+    if(err){
+      console.log("# API DELETE ", err)
+    }
+    res.json(allMessages);
+  })
+})
+
 
 // ------->>> POST BOOKS <<<-------
 

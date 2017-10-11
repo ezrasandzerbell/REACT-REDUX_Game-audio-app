@@ -5,10 +5,12 @@ import {combineReducers} from 'redux';
 
 import {booksReducers} from './booksReducers'
 import {cartReducers} from './cartReducers'
+import {contactReducers} from './contactReducers'
 
 // here combined the reducers
 
 export default combineReducers({
   books: booksReducers,
-  cart: cartReducers
+  cart: cartReducers,
+  messages: contactReducers
 })

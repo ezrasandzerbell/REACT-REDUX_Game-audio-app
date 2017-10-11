@@ -3,22 +3,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
-
-import sendContactMessage from '../../actions/contactActions';
-import contactReducers from '../../reducers/contactReducers';
+import {findDOMNode} from 'react-dom';
+import {sendContactMessage, initializeContact} from '../../actions/contactActions';
 
 import {MenuItem, InputGroup, DropdownButton, Image, Col, Row, Well, Panel, FormControl, FormGroup, ControlLabel, Button} from 'react-bootstrap';
 
 
 class Contact extends React.Component {
 
+  componentDidMount() {
+    this.props.initializeContact();
+  }
+
   handleSubmit(){
-    const book=[{
+    const currentMessage=[{
       name: findDOMNode(this.refs.name).value,
       title: findDOMNode(this.refs.title).value,
       message: findDOMNode(this.refs.message).value
     }]
-    this.props.postBooks(book)
+    this.props.sendContactMessage(currentMessage)
   }
 
   resetForm(){
@@ -35,7 +38,6 @@ class Contact extends React.Component {
             <h1 className="center-text margin-bottom-sml">Contact Us!</h1>
             <Panel>
               <FormGroup controlId="name" validationState={this.props.validation}>
-
                 <ControlLabel>Please Enter Your Name</ControlLabel>
                 <FormControl
                   type="text"
@@ -76,4 +78,19 @@ class Contact extends React.Component {
   }
 }
 
-export default Contact;
+function mapStateToProps(state){
+  return {
+    msg: state.messages.msg,
+    style: state.messages.style,
+    validation: state.messages.validation
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    sendContactMessage,
+    initializeContact
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);

@@ -13,8 +13,7 @@ var httpProxy = require('http-proxy');
 
 // request handler for server-side rendering
 
-var requestHandler = require('./requestHandler.js')
-
+var requestHandler = require('./requestHandler.js');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
