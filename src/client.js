@@ -19,7 +19,7 @@ import reducers from './reducers/index'
 // import actions
 
 import {addToCart} from './actions/cartActions'
-import {postBooks, deleteBooks, updateBooks} from './actions/booksActions'
+import {postOst, deleteOst, updateOst} from './actions/ostActions'
 import {sendContactMessage} from './actions/contactActions'
 import routes from './routes'
 

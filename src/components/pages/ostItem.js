@@ -5,16 +5,21 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addToCart, updateCart } from '../../actions/cartActions';
 
-class BookItem extends React.Component {
+class OstItem extends React.Component {
 
     handleCart() {
-        const book = [...this.props.cart, {
+        const ost = [...this.props.cart, {
             _id: this.props._id,
-            title: this.props.title,
+            gameTitle: this.props.gameTitle,
+            composer: this.props.composer,
+            publisher: this.props.publishers,
+            releaseDate: this.props.releaseDate,
             description: this.props.description,
-            image: this.props.images,
-            price: this.props.price,
+            trackList: this.props.trackList,
+            images: this.props.images,
+            url: this.props.url,
             quantity:1
+
         }];
         // CHECK If cart is empty
         if(this.props.cart.length > 0){
@@ -26,7 +31,7 @@ class BookItem extends React.Component {
           })
           // If returns -1 then there are no items with same id
           if (cartIndex === -1){
-            this.props.addToCart(book);
+            this.props.addToCart(ost);
           } else {
             // Need to update quantity
             this.props.updateCart(_id, 1, this.props.cart);
@@ -34,7 +39,7 @@ class BookItem extends React.Component {
 
         } else {
           // cart is empty
-          this.props.addToCart(book);
+          this.props.addToCart(ost);
         }
 
     }
@@ -53,20 +58,17 @@ class BookItem extends React.Component {
         return (
             <Well>
                 <Row>
-                  <Col xs={12} sm={4}>
-                    <Image src={this.props.images} responsive/>
-                  </Col>
-                    <Col xs={6} sm={8}>
-                        <h6>{this.props.title}</h6>
-                        <p>{(this.props.description.length > 50 && this.state.isClicked === false)?(this.props.description.substring(0, 50)):(this.props.description)}
-                          <button className='link' onClick={this.onReadMore.bind(this)}>
-                            {(this.state.isClicked === false && this.props.description !== null && this.props.description.length > 50 )?('...read more'):('')}
-                          </button>
-                        </p>
+                  <Image src={this.props.images} responsive/>
+                </Row>
+                  <Row className="ostItemText">
 
-                        <h6>usd. {this.props.price}</h6>
-                        <Button onClick={this.handleCart.bind(this)} bsStyle='primary'>Buy now!</Button>
-                    </Col>
+                        <h5 className="center-text">{this.props.gameTitle}</h5>
+                        <p>Composer: <span className="pull-right">{this.props.composer}</span></p>
+                        <p>Released: <span className="pull-right">{this.props.releaseDate}</span></p>
+                        <p>Published by: <span className="pull-right">{this.props.publisher}</span></p>
+
+
+                        <Button onClick={this.handleCart.bind(this)}  className="center-button">Buy now!</Button>
                 </Row>
             </Well>
         )
@@ -86,4 +88,4 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookItem);
+export default connect(mapStateToProps, mapDispatchToProps)(OstItem);

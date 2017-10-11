@@ -43,9 +43,21 @@ button.link {
 
 .center-button {
   margin-top: 25px;
-  margin-left: 40%;
+  margin-left: 10%;
+  width: 80%;
 }
 
 .margin-bottom-sml {
   margin-bottom: 45px;
+}
+
+.ostItemText p {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pull-right {
+  right: 20;
 }

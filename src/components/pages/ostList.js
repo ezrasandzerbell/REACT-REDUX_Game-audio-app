@@ -3,28 +3,32 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import {getBooks} from '../../actions/booksActions';
+import {getOsts} from '../../actions/ostActions';
 import {Carousel, Grid, Col, Row, Button} from 'react-bootstrap';
 
-import BookItem from './bookItem';
-import BooksForm from './booksForm';
+import OstItem from './ostItem';
+import OstForm from './ostForm';
 import Cart from './cart';
 
-class BooksList extends React.Component{
+class OstList extends React.Component{
   componentDidMount(){
     // dispatch an action
-    this.props.getBooks();
+    this.props.getOsts();
   }
   render(){
-    const booksList = this.props.books.map(function(booksArr){
+    const ostsList = this.props.osts.map(function(ostArr){
       return (
-        <Col xs={12} sm={6} md={4} key={booksArr._id}>
-          <BookItem
-              _id={booksArr._id}
-              title={booksArr.title}
-              description={booksArr.description}
-              images={booksArr.images}
-              price={booksArr.price}
+        <Col xs={12} sm={6} md={4} key={ostArr._id}>
+          <OstItem
+              _id={ostArr._id}
+              gameTitle={ostArr.gameTitle}
+              composer={ostArr.composer}
+              publisher={ostArr.publisher}
+              releaseDate={ostArr.releaseDate}
+              description={ostArr.description}
+              trackList={ostArr.trackList}
+              images={ostArr.images}
+              url={ostArr.url}
           />
         </Col>
       )
@@ -36,15 +40,15 @@ class BooksList extends React.Component{
           <Carousel.Item>
             <img width={900} height={300} alt="900x300" src="/images/books-carousel-1.jpg" className="image-dim"/>
             <Carousel.Caption>
-              <h3>Rare Books</h3>
-              <p>Connect with book dealers and get the best price on rare items.</p>
+              <h3>Rare Osts</h3>
+              <p>Connect with ost dealers and get the best price on rare items.</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img width={900} height={300} alt="900x300" src="/images/books-carousel-2.jpg" className="image-dim"/>
             <Carousel.Caption>
               <h3>Over 10,000 Titles</h3>
-              <p>Use our system to browse a huge library of rare books.</p>
+              <p>Use our system to browse a huge library of rare osts.</p>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
@@ -54,7 +58,7 @@ class BooksList extends React.Component{
         </Row>
 
         <Row style={{marginTop:'15px'}}>
-          {booksList}
+          {ostsList}
         </Row>
 
 
@@ -64,14 +68,14 @@ class BooksList extends React.Component{
 }
 function mapStateToProps(state){
   return {
-    books: state.books.books
+    osts: state.osts.osts
   }
 }
 
 function mapDispatchToProps(dispatch){
   return bindActionCreators({
-    getBooks:getBooks
+    getOsts:getOsts
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BooksList);
+export default connect(mapStateToProps, mapDispatchToProps)(OstList);

@@ -60,7 +60,7 @@ app.use(session({
   })
 // ------>>> END SESSION SET UP <<<---------
 
-var Books = require('./models/books.js');
+var Osts = require('./models/osts.js');
 var Messages = require('./models/messages.js');
 
 // ------->>> POST MESSAGE <<<-------
@@ -77,72 +77,76 @@ app.post('/messages', function(req, res){
 })
 
 
-// ------->>> POST BOOKS <<<-------
+// ------->>> POST OST <<<-------
 
-app.post('/books', function(req, res){
-  var book = req.body;
+app.post('/osts', function(req, res){
+  var ost = req.body;
 
-  Books.create(book, function(err, books){
+  Osts.create(ost, function(err, osts){
     if(err){
       console.log("# API DELETE ", err)
     }
-    res.json(books);
+    res.json(osts);
   })
 })
 
-// ------->>> GET BOOKS <<<-------
+// ------->>> GET OSTS <<<-------
 
-app.get('/books', function(req, res){
-  Books.find(function(err, books){
+app.get('/osts', function(req, res){
+  Osts.find(function(err, osts){
     if(err){
       throw err
     }
-    res.json(books)
+    res.json(osts)
   })
 });
 
-// ------->>> DELETE BOOKS <<<-------
+// ------->>> DELETE OSTS <<<-------
 
-app.delete('/books/:_id', function(req, res){
+app.delete('/osts/:_id', function(req, res){
   var query = {_id: req.params._id};
 
-  Books.remove(query, function(err, books){
+  Osts.remove(query, function(err, osts){
     if(err){
       throw err
     }
-    res.json(books)
+    res.json(osts)
   })
 });
 
-// ------->>> UPDATE BOOKS <<<-------
+// ------->>> UPDATE OSTS <<<-------
 
-app.put('/books/:_id', function(req, res){
-  var book = req.body;
+app.put('/osts/:_id', function(req, res){
+  var ost = req.body;
   var query = req.params._id;
 
   // if field doesn't exist $set will set a new field
 
   var update = {
     '$set': {
-      title: book.title,
-      description: book.description,
-      image: book.image,
-      price: book.price
+      gameTitle: ost.gameTitle,
+      composer: ost.composer,
+      publisher: ost.publisher,
+      releaseDate: ost.releaseDate,
+      description: ost.description,
+      trackList: ost.trackList,
+      images: ost.images,
+      url: ost.url
     }
   };
 
   var options = {new: true};
 
-  Books.findOneAndUpdate(query, update, options, function(err, books){
+  Osts.findOneAndUpdate(query, update, options, function(err, osts){
     if(err){
       throw err;
     }
-    res.json(books);
+    res.json(osts);
   })
 
 });
 
-// ---->>> GET BOOKS IMAGES API <<<------
+// ---->>> GET OSTS IMAGES API <<<------
 
 app.get('/images', function(req,res){
   const imgFolder = __dirname + '/public/images';

@@ -3,14 +3,14 @@ import {combineReducers} from 'redux';
 
 // here import REDUCERS to be combined
 
-import {booksReducers} from './booksReducers'
+import {ostReducers} from './ostReducers'
 import {cartReducers} from './cartReducers'
 import {contactReducers} from './contactReducers'
 
 // here combined the reducers
 
 export default combineReducers({
-  books: booksReducers,
+  osts: ostReducers,
   cart: cartReducers,
   messages: contactReducers
 })

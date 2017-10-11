@@ -7605,18 +7605,18 @@ function addToCart(cart) {
 
 // UPDATE cart
 function updateCart(_id, unit, cart) {
-  //create a copy of the current array of books
-  var currentBookToUpdate = cart;
-  //determine at which index in array this book should be updated
-  var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
-    return book._id === _id;
+  //create a copy of the current array of osts
+  var currentOstToUpdate = cart;
+  //determine at which index in array this ost should be updated
+  var indexToUpdate = currentOstToUpdate.findIndex(function (ost) {
+    return ost._id === _id;
   });
 
-  var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
-    quantity: currentBookToUpdate[indexToUpdate].quantity + unit
+  var newOstToUpdate = _extends({}, currentOstToUpdate[indexToUpdate], {
+    quantity: currentOstToUpdate[indexToUpdate].quantity + unit
   });
 
-  var cartUpdate = [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1)));
+  var cartUpdate = [].concat(_toConsumableArray(currentOstToUpdate.slice(0, indexToUpdate)), [newOstToUpdate], _toConsumableArray(currentOstToUpdate.slice(indexToUpdate + 1)));
 
   return function (dispatch) {
     _axios2.default.post("/api/cart", cartUpdate).then(function (response) {
@@ -11257,10 +11257,10 @@ module.exports = defaults;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBooks = getBooks;
-exports.postBooks = postBooks;
-exports.deleteBooks = deleteBooks;
-exports.updateBooks = updateBooks;
+exports.getOsts = getOsts;
+exports.postOst = postOst;
+exports.deleteOst = deleteOst;
+exports.updateOst = updateOst;
 exports.resetButton = resetButton;
 
 var _axios = __webpack_require__(86);
@@ -11269,53 +11269,53 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Get books
-function getBooks() {
+// Get osts
+function getOsts() {
   return function (dispatch) {
-    _axios2.default.get("/api/books").then(function (response) {
-      dispatch({ type: "GET_BOOKS", payload: response.data });
+    _axios2.default.get("/api/osts").then(function (response) {
+      dispatch({ type: "GET_OSTS", payload: response.data });
     }).catch(function (err) {
-      dispatch({ type: "GET_BOOKS_REJECTED", payload: err });
+      dispatch({ type: "GET_OSTS_REJECTED", payload: err });
     });
   };
 }
 
-function postBooks(book) {
+function postOst(ost) {
   return function (dispatch) {
-    _axios2.default.post("/api/books", book).then(function (response) {
-      dispatch({ type: "POST_BOOK", payload: response.data });
+    _axios2.default.post("/api/osts", ost).then(function (response) {
+      dispatch({ type: "POST_OST", payload: response.data });
     }).catch(function (err) {
-      dispatch({ type: "POST_BOOK_REJECTED", payload: "there was an error while posting a new book" });
+      dispatch({ type: "POST_OST_REJECTED", payload: "there was an error while posting a new ost" });
     });
   };
 }
 // OLD CODE:
 // return {
-//   type:"POST_BOOKS",
-//   payload: book
+//   type:"POST_OSTS",
+//   payload: ost
 // }
 
 
-function deleteBooks(id) {
+function deleteOst(id) {
   return function (dispatch) {
-    _axios2.default.delete("/api/books/" + id).then(function (response) {
-      dispatch({ type: "DELETE_BOOK", payload: id }).catch(function (err) {
-        dispatch({ type: "DELETE_BOOK_REJECTED", payload: err });
+    _axios2.default.delete("/api/osts/" + id).then(function (response) {
+      dispatch({ type: "DELETE_OST", payload: id }).catch(function (err) {
+        dispatch({ type: "DELETE_OST_REJECTED", payload: err });
       });
     });
   };
 }
 
-// Update books
+// Update osts
 
-function updateBooks(book) {
+function updateOst(ost) {
   return {
-    type: "UPDATE_BOOK",
-    payload: book
+    type: "UPDATE_OST",
+    payload: ost
   };
 }
 
-// reset book form
+// reset ost form
 
 function resetButton() {
   return {
@@ -23186,7 +23186,7 @@ var _reactRedux = __webpack_require__(43);
 
 var _redux = __webpack_require__(27);
 
-var _booksActions = __webpack_require__(127);
+var _ostActions = __webpack_require__(127);
 
 var _reactDom = __webpack_require__(20);
 
@@ -23202,13 +23202,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BooksForm = function (_React$Component) {
-  _inherits(BooksForm, _React$Component);
+var OstForm = function (_React$Component) {
+  _inherits(OstForm, _React$Component);
 
-  function BooksForm() {
-    _classCallCheck(this, BooksForm);
+  function OstForm() {
+    _classCallCheck(this, OstForm);
 
-    var _this = _possibleConstructorReturn(this, (BooksForm.__proto__ || Object.getPrototypeOf(BooksForm)).call(this));
+    var _this = _possibleConstructorReturn(this, (OstForm.__proto__ || Object.getPrototypeOf(OstForm)).call(this));
 
     _this.state = {
       images: [{}],
@@ -23217,11 +23217,11 @@ var BooksForm = function (_React$Component) {
     return _this;
   }
 
-  _createClass(BooksForm, [{
+  _createClass(OstForm, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
 
-      this.props.getBooks();
+      this.props.getOsts();
 
       _axios2.default.get('/api/images').then(function (response) {
         this.setState({ images: response.data });
@@ -23232,20 +23232,24 @@ var BooksForm = function (_React$Component) {
   }, {
     key: 'handleSubmit',
     value: function handleSubmit() {
-      var book = [{
-        title: (0, _reactDom.findDOMNode)(this.refs.title).value,
+      var ost = [{
+        gameTitle: (0, _reactDom.findDOMNode)(this.refs.gameTitle).value,
+        composer: (0, _reactDom.findDOMNode)(this.refs.composer).value,
+        publisher: (0, _reactDom.findDOMNode)(this.refs.publisher).value,
+        releaseDate: (0, _reactDom.findDOMNode)(this.refs.releaseDate).value,
         description: (0, _reactDom.findDOMNode)(this.refs.description).value,
-        price: (0, _reactDom.findDOMNode)(this.refs.price).value,
-        images: (0, _reactDom.findDOMNode)(this.refs.image).value
+        trackList: (0, _reactDom.findDOMNode)(this.refs.trackList).value,
+        images: (0, _reactDom.findDOMNode)(this.refs.image).value,
+        url: (0, _reactDom.findDOMNode)(this.refs.url).value
       }];
-      this.props.postBooks(book);
+      this.props.postOst(ost);
     }
   }, {
     key: 'onDelete',
     value: function onDelete() {
-      var bookId = (0, _reactDom.findDOMNode)(this.refs.delete).value;
+      var ostId = (0, _reactDom.findDOMNode)(this.refs.delete).value;
 
-      this.props.deleteBooks(bookId);
+      this.props.deleteOst(ostId);
     }
   }, {
     key: 'handleSelect',
@@ -23259,21 +23263,25 @@ var BooksForm = function (_React$Component) {
     value: function resetForm() {
       // RESET THE Button
       this.props.resetButton();
-      (0, _reactDom.findDOMNode)(this.refs.title).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.gameTitle).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.composer).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.publisher).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.releaseDate).value = '';
       (0, _reactDom.findDOMNode)(this.refs.description).value = '';
-      (0, _reactDom.findDOMNode)(this.refs.price).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.trackList).value = '';
+      (0, _reactDom.findDOMNode)(this.refs.url).value = '';
       this.setState({ img: '' });
     }
   }, {
     key: 'render',
     value: function render() {
 
-      var booksList = this.props.books.map(function (booksArr) {
+      var ostList = this.props.osts.map(function (ostArr) {
         return _react2.default.createElement(
           'option',
-          { key: booksArr._id },
+          { key: ostArr._id },
           ' ',
-          booksArr._id
+          ostArr._id
         );
       });
 
@@ -23324,16 +23332,61 @@ var BooksForm = function (_React$Component) {
               null,
               _react2.default.createElement(
                 _reactBootstrap.FormGroup,
-                { controlId: 'title', validationState: this.props.validation },
+                { controlId: 'gameTitle', validationState: this.props.validation },
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
-                  'Title'
+                  'Game Title'
                 ),
                 _react2.default.createElement(_reactBootstrap.FormControl, {
                   type: 'text',
-                  placeholder: 'Enter Title',
-                  ref: 'title'
+                  placeholder: 'Enter Game Title',
+                  ref: 'gameTitle'
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'composer', validationState: this.props.validation },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Composer'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  type: 'text',
+                  placeholder: 'Enter Composer',
+                  ref: 'composer'
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'publisher', validationState: this.props.validation },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Publisher'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  type: 'text',
+                  placeholder: 'Enter Publisher',
+                  ref: 'publisher'
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'releaseDate', validationState: this.props.validation },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Release Date'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  type: 'text',
+                  placeholder: 'Enter Release Date',
+                  ref: 'releaseDate'
                 }),
                 _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
@@ -23354,16 +23407,32 @@ var BooksForm = function (_React$Component) {
               ),
               _react2.default.createElement(
                 _reactBootstrap.FormGroup,
-                { controlId: 'price', validationState: this.props.validation },
+                { controlId: 'trackList', validationState: this.props.validation },
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
-                  'Price'
+                  'Track List'
                 ),
                 _react2.default.createElement(_reactBootstrap.FormControl, {
                   type: 'text',
-                  placeholder: 'Enter Price',
-                  ref: 'price'
+                  componentClass: 'textarea',
+                  placeholder: 'Enter Track List',
+                  ref: 'trackList'
+                }),
+                _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.FormGroup,
+                { controlId: 'url', validationState: this.props.validation },
+                _react2.default.createElement(
+                  _reactBootstrap.ControlLabel,
+                  null,
+                  'Video Url'
+                ),
+                _react2.default.createElement(_reactBootstrap.FormControl, {
+                  type: 'text',
+                  placeholder: 'Enter Video Url',
+                  ref: 'url'
                 }),
                 _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null)
               ),
@@ -23372,7 +23441,7 @@ var BooksForm = function (_React$Component) {
                 {
                   onClick: !this.props.msg ? this.handleSubmit.bind(this) : this.resetForm.bind(this),
                   bsStyle: !this.props.style ? "primary" : this.props.style },
-                !this.props.msg ? "Save Book" : this.props.msg
+                !this.props.msg ? "Save Ost" : this.props.msg
               )
             ),
             _react2.default.createElement(
@@ -23384,7 +23453,7 @@ var BooksForm = function (_React$Component) {
                 _react2.default.createElement(
                   _reactBootstrap.ControlLabel,
                   null,
-                  'Select a book id to delete'
+                  'Select a ost id to delete'
                 ),
                 _react2.default.createElement(
                   _reactBootstrap.FormControl,
@@ -23394,13 +23463,13 @@ var BooksForm = function (_React$Component) {
                     { value: 'select' },
                     'select'
                   ),
-                  booksList
+                  ostList
                 )
               ),
               _react2.default.createElement(
                 _reactBootstrap.Button,
                 { onClick: this.onDelete.bind(this), bsStyle: 'danger' },
-                'Delete Book'
+                'Delete Ost'
               )
             )
           )
@@ -23409,28 +23478,28 @@ var BooksForm = function (_React$Component) {
     }
   }]);
 
-  return BooksForm;
+  return OstForm;
 }(_react2.default.Component);
 
 function mapStateToProps(state) {
   return {
-    books: state.books.books,
-    msg: state.books.msg,
-    style: state.books.style,
-    validation: state.books.validation
+    osts: state.osts.osts,
+    msg: state.osts.msg,
+    style: state.osts.style,
+    validation: state.osts.validation
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
-    postBooks: _booksActions.postBooks,
-    deleteBooks: _booksActions.deleteBooks,
-    getBooks: _booksActions.getBooks,
-    resetButton: _booksActions.resetButton
+    postOst: _ostActions.postOst,
+    deleteOst: _ostActions.deleteOst,
+    getOsts: _ostActions.getOsts,
+    resetButton: _ostActions.resetButton
   }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BooksForm);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(OstForm);
 
 /***/ }),
 /* 259 */
@@ -23478,13 +23547,13 @@ var Cart = function (_React$Component) {
   }, {
     key: 'onDelete',
     value: function onDelete(_id) {
-      //create a copy of the current array of books
-      var currentBookToDelete = this.props.cart;
-      //determine at which index in array this book should be deleted
-      var indexToDelete = currentBookToDelete.findIndex(function (cart) {
+      //create a copy of the current array of osts
+      var currentOstToDelete = this.props.cart;
+      //determine at which index in array this ost should be deleted
+      var indexToDelete = currentOstToDelete.findIndex(function (cart) {
         return cart._id === _id;
       });
-      var cartAfterDelete = [].concat(_toConsumableArray(currentBookToDelete.slice(0, indexToDelete)), _toConsumableArray(currentBookToDelete.slice(indexToDelete + 1)));
+      var cartAfterDelete = [].concat(_toConsumableArray(currentOstToDelete.slice(0, indexToDelete)), _toConsumableArray(currentOstToDelete.slice(indexToDelete + 1)));
 
       this.props.deleteCartItem(cartAfterDelete);
     }
@@ -23674,7 +23743,7 @@ var Cart = function (_React$Component) {
                   _react2.default.createElement(
                     'h6',
                     null,
-                    'Number of Books: ',
+                    'Number of Osts: ',
                     this.props.totalQty
                   )
                 ),
@@ -23752,7 +23821,7 @@ var _index2 = _interopRequireDefault(_index);
 
 var _cartActions = __webpack_require__(85);
 
-var _booksActions = __webpack_require__(127);
+var _ostActions = __webpack_require__(127);
 
 var _contactActions = __webpack_require__(213);
 
@@ -38418,7 +38487,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(27);
 
-var _booksReducers = __webpack_require__(413);
+var _ostReducers = __webpack_require__(413);
 
 var _cartReducers = __webpack_require__(414);
 
@@ -38427,7 +38496,7 @@ var _contactReducers = __webpack_require__(415);
 // here combined the reducers
 
 exports.default = (0, _redux.combineReducers)({
-  books: _booksReducers.booksReducers,
+  osts: _ostReducers.ostReducers,
   cart: _cartReducers.cartReducers,
   messages: _contactReducers.contactReducers
 });
@@ -38447,65 +38516,65 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-exports.booksReducers = booksReducers;
+exports.ostReducers = ostReducers;
 
 var _redux = __webpack_require__(27);
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-// books reducers
+// osts reducers
 
-function booksReducers() {
+function ostReducers() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    books: []
+    osts: []
   };
   var action = arguments[1];
 
   switch (action.type) {
 
-    case "GET_BOOKS":
-      // return copy of the state and copy of the books aray from the state
-      // this connects to books: state.books.books in booksForm.
+    case "GET_OSTS":
+      // return copy of the state and copy of the osts aray from the state
+      // this connects to osts: state.osts.osts in ostsForm.
 
-      return _extends({}, state, { books: [].concat(_toConsumableArray(action.payload)) });
+      return _extends({}, state, { osts: [].concat(_toConsumableArray(action.payload)) });
       break;
 
-    case "POST_BOOK":
-      return _extends({}, state, { books: [].concat(_toConsumableArray(state.books), _toConsumableArray(action.payload)), msg: 'Saved! Click to continue', style: 'success', validation: 'success' });
+    case "POST_OST":
+      return _extends({}, state, { osts: [].concat(_toConsumableArray(state.osts), _toConsumableArray(action.payload)), msg: 'Saved! Click to continue', style: 'success', validation: 'success' });
       break;
-    case "POST_BOOK_REJECTED":
+    case "POST_OST_REJECTED":
       return _extends({}, state, { msg: 'Please, try again.', style: 'danger', validation: 'error' });
       break;
     case "RESET_BUTTON":
       return _extends({}, state, { msg: null, style: 'primary', validation: null });
       break;
-    case "DELETE_BOOK":
-      //create a copy of the current array of books
-      var currentBookToDelete = [].concat(_toConsumableArray(state.books));
-      //determine at which index in array this book should be deleted
-      var indexToDelete = currentBookToDelete.findIndex(function (book) {
-        return book._id == action.payload;
+    case "DELETE_OST":
+      //create a copy of the current array of osts
+      var currentOstToDelete = [].concat(_toConsumableArray(state.osts));
+      //determine at which index in array this ost should be deleted
+      var indexToDelete = currentOstToDelete.findIndex(function (ost) {
+        return ost._id == action.payload;
       });
-      return { books: [].concat(_toConsumableArray(currentBookToDelete.slice(0, indexToDelete)), _toConsumableArray(currentBookToDelete.slice(indexToDelete + 1))) };
+      return { osts: [].concat(_toConsumableArray(currentOstToDelete.slice(0, indexToDelete)), _toConsumableArray(currentOstToDelete.slice(indexToDelete + 1))) };
       break;
 
-    case "UPDATE_BOOK":
-      //create a copy of the current array of books
-      var currentBookToUpdate = [].concat(_toConsumableArray(state.books));
-      //determine at which index in array this book should be updated
-      var indexToUpdate = currentBookToUpdate.findIndex(function (book) {
-        return book._id === action.payload._id;
+    case "UPDATE_OST":
+      //create a copy of the current array of osts
+      var currentOstToUpdate = [].concat(_toConsumableArray(state.osts));
+      //determine at which index in array this ost should be updated
+      var indexToUpdate = currentOstToUpdate.findIndex(function (ost) {
+        return ost._id === action.payload._id;
       });
 
-      // Create a new book object with the new values and with the same array index of the item we want to replace. To achieve this we will use ...spread but we could use concat method too.
+      // Create a new ost object with the new values and with the same array index of the item we want to replace. To achieve this we will use ...spread but we could use concat method too.
 
-      var newBookToUpdate = _extends({}, currentBookToUpdate[indexToUpdate], {
+      var newOstToUpdate = _extends({}, currentOstToUpdate[indexToUpdate], {
         title: action.payload.title
 
-        // this log shows what the newBookToUpdate looks like
-      });console.log("What is newBookToUpdate:", newBookToUpdate);
+        // this log shows what the newOstToUpdate looks like
+      });console.log("What is newOstToUpdate:", newOstToUpdate);
 
-      return { books: [].concat(_toConsumableArray(currentBookToUpdate.slice(0, indexToUpdate)), [newBookToUpdate], _toConsumableArray(currentBookToUpdate.slice(indexToUpdate + 1))) };
+      return { osts: [].concat(_toConsumableArray(currentOstToUpdate.slice(0, indexToUpdate)), [newOstToUpdate], _toConsumableArray(currentOstToUpdate.slice(indexToUpdate + 1))) };
       break;
   }
   return state;
@@ -39512,17 +39581,17 @@ var _reactDom = __webpack_require__(20);
 
 var _reactRouter = __webpack_require__(196);
 
-var _booksList = __webpack_require__(435);
+var _ostList = __webpack_require__(435);
 
-var _booksList2 = _interopRequireDefault(_booksList);
+var _ostList2 = _interopRequireDefault(_ostList);
 
 var _cart = __webpack_require__(259);
 
 var _cart2 = _interopRequireDefault(_cart);
 
-var _booksForm = __webpack_require__(258);
+var _ostForm = __webpack_require__(258);
 
-var _booksForm2 = _interopRequireDefault(_booksForm);
+var _ostForm2 = _interopRequireDefault(_ostForm);
 
 var _about = __webpack_require__(574);
 
@@ -39544,8 +39613,8 @@ var routes = _react2.default.createElement(
   _react2.default.createElement(
     _reactRouter.Route,
     { path: '/', component: _main2.default },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _booksList2.default }),
-    _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _booksForm2.default }),
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _ostList2.default }),
+    _react2.default.createElement(_reactRouter.Route, { path: '/admin', component: _ostForm2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/cart', component: _cart2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _about2.default }),
     _react2.default.createElement(_reactRouter.Route, { path: '/contact', component: _contactForm2.default })
@@ -39576,17 +39645,17 @@ var _reactRedux = __webpack_require__(43);
 
 var _redux = __webpack_require__(27);
 
-var _booksActions = __webpack_require__(127);
+var _ostActions = __webpack_require__(127);
 
 var _reactBootstrap = __webpack_require__(44);
 
-var _bookItem = __webpack_require__(573);
+var _ostItem = __webpack_require__(573);
 
-var _bookItem2 = _interopRequireDefault(_bookItem);
+var _ostItem2 = _interopRequireDefault(_ostItem);
 
-var _booksForm = __webpack_require__(258);
+var _ostForm = __webpack_require__(258);
 
-var _booksForm2 = _interopRequireDefault(_booksForm);
+var _ostForm2 = _interopRequireDefault(_ostForm);
 
 var _cart = __webpack_require__(259);
 
@@ -39600,34 +39669,38 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BooksList = function (_React$Component) {
-  _inherits(BooksList, _React$Component);
+var OstList = function (_React$Component) {
+  _inherits(OstList, _React$Component);
 
-  function BooksList() {
-    _classCallCheck(this, BooksList);
+  function OstList() {
+    _classCallCheck(this, OstList);
 
-    return _possibleConstructorReturn(this, (BooksList.__proto__ || Object.getPrototypeOf(BooksList)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (OstList.__proto__ || Object.getPrototypeOf(OstList)).apply(this, arguments));
   }
 
-  _createClass(BooksList, [{
+  _createClass(OstList, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       // dispatch an action
-      this.props.getBooks();
+      this.props.getOsts();
     }
   }, {
     key: 'render',
     value: function render() {
-      var booksList = this.props.books.map(function (booksArr) {
+      var ostsList = this.props.osts.map(function (ostArr) {
         return _react2.default.createElement(
           _reactBootstrap.Col,
-          { xs: 12, sm: 6, md: 4, key: booksArr._id },
-          _react2.default.createElement(_bookItem2.default, {
-            _id: booksArr._id,
-            title: booksArr.title,
-            description: booksArr.description,
-            images: booksArr.images,
-            price: booksArr.price
+          { xs: 12, sm: 6, md: 4, key: ostArr._id },
+          _react2.default.createElement(_ostItem2.default, {
+            _id: ostArr._id,
+            gameTitle: ostArr.gameTitle,
+            composer: ostArr.composer,
+            publisher: ostArr.publisher,
+            releaseDate: ostArr.releaseDate,
+            description: ostArr.description,
+            trackList: ostArr.trackList,
+            images: ostArr.images,
+            url: ostArr.url
           })
         );
       });
@@ -39650,12 +39723,12 @@ var BooksList = function (_React$Component) {
                 _react2.default.createElement(
                   'h3',
                   null,
-                  'Rare Books'
+                  'Rare Osts'
                 ),
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Connect with book dealers and get the best price on rare items.'
+                  'Connect with ost dealers and get the best price on rare items.'
                 )
               )
             ),
@@ -39674,7 +39747,7 @@ var BooksList = function (_React$Component) {
                 _react2.default.createElement(
                   'p',
                   null,
-                  'Use our system to browse a huge library of rare books.'
+                  'Use our system to browse a huge library of rare osts.'
                 )
               )
             )
@@ -39688,28 +39761,28 @@ var BooksList = function (_React$Component) {
         _react2.default.createElement(
           _reactBootstrap.Row,
           { style: { marginTop: '15px' } },
-          booksList
+          ostsList
         )
       );
     }
   }]);
 
-  return BooksList;
+  return OstList;
 }(_react2.default.Component);
 
 function mapStateToProps(state) {
   return {
-    books: state.books.books
+    osts: state.osts.osts
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return (0, _redux.bindActionCreators)({
-    getBooks: _booksActions.getBooks
+    getOsts: _ostActions.getOsts
   }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BooksList);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(OstList);
 
 /***/ }),
 /* 436 */
@@ -50744,7 +50817,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -50771,124 +50844,139 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var BookItem = function (_React$Component) {
-  _inherits(BookItem, _React$Component);
+var OstItem = function (_React$Component) {
+    _inherits(OstItem, _React$Component);
 
-  _createClass(BookItem, [{
-    key: 'handleCart',
-    value: function handleCart() {
-      var book = [].concat(_toConsumableArray(this.props.cart), [{
-        _id: this.props._id,
-        title: this.props.title,
-        description: this.props.description,
-        image: this.props.images,
-        price: this.props.price,
-        quantity: 1
-      }]);
-      // CHECK If cart is empty
-      if (this.props.cart.length > 0) {
-        // cart is not empty
-        var _id = this.props._id;
+    _createClass(OstItem, [{
+        key: 'handleCart',
+        value: function handleCart() {
+            var ost = [].concat(_toConsumableArray(this.props.cart), [{
+                _id: this.props._id,
+                gameTitle: this.props.gameTitle,
+                composer: this.props.composer,
+                publisher: this.props.publishers,
+                releaseDate: this.props.releaseDate,
+                description: this.props.description,
+                trackList: this.props.trackList,
+                images: this.props.images,
+                url: this.props.url,
+                quantity: 1
 
-        var cartIndex = this.props.cart.findIndex(function (cart) {
-          return cart._id === _id;
-        });
-        // If returns -1 then there are no items with same id
-        if (cartIndex === -1) {
-          this.props.addToCart(book);
-        } else {
-          // Need to update quantity
-          this.props.updateCart(_id, 1, this.props.cart);
+            }]);
+            // CHECK If cart is empty
+            if (this.props.cart.length > 0) {
+                // cart is not empty
+                var _id = this.props._id;
+
+                var cartIndex = this.props.cart.findIndex(function (cart) {
+                    return cart._id === _id;
+                });
+                // If returns -1 then there are no items with same id
+                if (cartIndex === -1) {
+                    this.props.addToCart(ost);
+                } else {
+                    // Need to update quantity
+                    this.props.updateCart(_id, 1, this.props.cart);
+                }
+            } else {
+                // cart is empty
+                this.props.addToCart(ost);
+            }
         }
-      } else {
-        // cart is empty
-        this.props.addToCart(book);
-      }
+    }]);
+
+    function OstItem() {
+        _classCallCheck(this, OstItem);
+
+        var _this = _possibleConstructorReturn(this, (OstItem.__proto__ || Object.getPrototypeOf(OstItem)).call(this));
+
+        _this.state = {
+            isClicked: false
+        };
+        return _this;
     }
-  }]);
 
-  function BookItem() {
-    _classCallCheck(this, BookItem);
+    _createClass(OstItem, [{
+        key: 'onReadMore',
+        value: function onReadMore() {
+            this.setState({ isClicked: true });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                _reactBootstrap.Well,
+                null,
+                _react2.default.createElement(
+                    _reactBootstrap.Row,
+                    null,
+                    _react2.default.createElement(_reactBootstrap.Image, { src: this.props.images, responsive: true })
+                ),
+                _react2.default.createElement(
+                    _reactBootstrap.Row,
+                    { className: 'ostItemText' },
+                    _react2.default.createElement(
+                        'h5',
+                        { className: 'center-text' },
+                        this.props.gameTitle
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Composer: ',
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'pull-right' },
+                            this.props.composer
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Released: ',
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'pull-right' },
+                            this.props.releaseDate
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'p',
+                        null,
+                        'Published by: ',
+                        _react2.default.createElement(
+                            'span',
+                            { className: 'pull-right' },
+                            this.props.publisher
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { onClick: this.handleCart.bind(this), className: 'center-button' },
+                        'Buy now!'
+                    )
+                )
+            );
+        }
+    }]);
 
-    var _this = _possibleConstructorReturn(this, (BookItem.__proto__ || Object.getPrototypeOf(BookItem)).call(this));
-
-    _this.state = {
-      isClicked: false
-    };
-    return _this;
-  }
-
-  _createClass(BookItem, [{
-    key: 'onReadMore',
-    value: function onReadMore() {
-      this.setState({ isClicked: true });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        _reactBootstrap.Well,
-        null,
-        _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { xs: 12, sm: 4 },
-            _react2.default.createElement(_reactBootstrap.Image, { src: this.props.images, responsive: true })
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { xs: 6, sm: 8 },
-            _react2.default.createElement(
-              'h6',
-              null,
-              this.props.title
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              this.props.description.length > 50 && this.state.isClicked === false ? this.props.description.substring(0, 50) : this.props.description,
-              _react2.default.createElement(
-                'button',
-                { className: 'link', onClick: this.onReadMore.bind(this) },
-                this.state.isClicked === false && this.props.description !== null && this.props.description.length > 50 ? '...read more' : ''
-              )
-            ),
-            _react2.default.createElement(
-              'h6',
-              null,
-              'usd. ',
-              this.props.price
-            ),
-            _react2.default.createElement(
-              _reactBootstrap.Button,
-              { onClick: this.handleCart.bind(this), bsStyle: 'primary' },
-              'Buy now!'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return BookItem;
+    return OstItem;
 }(_react2.default.Component);
 
 function mapStateToProps(state) {
-  return {
-    cart: state.cart.cart
-  };
+    return {
+        cart: state.cart.cart
+    };
 }
 
 function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)({
-    addToCart: _cartActions.addToCart,
-    updateCart: _cartActions.updateCart
-  }, dispatch);
+    return (0, _redux.bindActionCreators)({
+        addToCart: _cartActions.addToCart,
+        updateCart: _cartActions.updateCart
+    }, dispatch);
 }
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(BookItem);
+exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(OstItem);
 
 /***/ }),
 /* 574 */

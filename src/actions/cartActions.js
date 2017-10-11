@@ -30,22 +30,22 @@ export function addToCart(cart) {
 
 // UPDATE cart
 export function updateCart(_id, unit, cart) {
-  //create a copy of the current array of books
-  const currentBookToUpdate = cart
-  //determine at which index in array this book should be updated
-  const indexToUpdate = currentBookToUpdate.findIndex(
-    function(book) {
-      return book._id === _id;
+  //create a copy of the current array of osts
+  const currentOstToUpdate = cart
+  //determine at which index in array this ost should be updated
+  const indexToUpdate = currentOstToUpdate.findIndex(
+    function(ost) {
+      return ost._id === _id;
     }
   )
 
-  const newBookToUpdate = {
-    ...currentBookToUpdate[indexToUpdate],
-    quantity: currentBookToUpdate[indexToUpdate].quantity + unit
+  const newOstToUpdate = {
+    ...currentOstToUpdate[indexToUpdate],
+    quantity: currentOstToUpdate[indexToUpdate].quantity + unit
   }
 
-  let cartUpdate = [...currentBookToUpdate.slice(0, indexToUpdate), newBookToUpdate,
-  ...currentBookToUpdate.slice(indexToUpdate + 1)]
+  let cartUpdate = [...currentOstToUpdate.slice(0, indexToUpdate), newOstToUpdate,
+  ...currentOstToUpdate.slice(indexToUpdate + 1)]
 
   return function(dispatch){
     axios.post("/api/cart", cartUpdate)

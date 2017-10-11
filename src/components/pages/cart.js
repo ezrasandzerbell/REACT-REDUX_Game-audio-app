@@ -12,16 +12,16 @@ class Cart extends React.Component {
   }
 
   onDelete(_id){
-    //create a copy of the current array of books
-    const currentBookToDelete = this.props.cart
-    //determine at which index in array this book should be deleted
-    const indexToDelete = currentBookToDelete.findIndex(
+    //create a copy of the current array of osts
+    const currentOstToDelete = this.props.cart
+    //determine at which index in array this ost should be deleted
+    const indexToDelete = currentOstToDelete.findIndex(
       function(cart) {
         return cart._id === _id;
       }
     )
-    let cartAfterDelete = [...currentBookToDelete.slice(0, indexToDelete),
-    ...currentBookToDelete.slice(indexToDelete + 1)]
+    let cartAfterDelete = [...currentOstToDelete.slice(0, indexToDelete),
+    ...currentOstToDelete.slice(indexToDelete + 1)]
 
     this.props.deleteCartItem(cartAfterDelete);
   }
@@ -106,7 +106,7 @@ class Cart extends React.Component {
                       <Modal.Footer>
                         <Col xs={6}>
                           <h6>Total: ${this.props.totalAmount}</h6>
-                          <h6>Number of Books: {this.props.totalQty}</h6>
+                          <h6>Number of Osts: {this.props.totalQty}</h6>
                         </Col>
                         <Button onClick={this.close.bind(this)}>Close</Button>
                       </Modal.Footer>
