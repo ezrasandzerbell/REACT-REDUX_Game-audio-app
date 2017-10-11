@@ -63,6 +63,7 @@ class BookItem extends React.Component {
                             {(this.state.isClicked === false && this.props.description !== null && this.props.description.length > 50 )?('...read more'):('')}
                           </button>
                         </p>
+
                         <h6>usd. {this.props.price}</h6>
                         <Button onClick={this.handleCart.bind(this)} bsStyle='primary'>Buy now!</Button>
                     </Col>

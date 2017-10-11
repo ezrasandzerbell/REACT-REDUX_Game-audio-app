@@ -68,7 +68,7 @@ var Messages = require('./models/messages.js');
 app.post('/messages', function(req, res){
   var fullMessage = req.body;
 
-  Books.create(fullMessage, function(err, allMessages){
+  Messages.create(fullMessage, function(err, allMessages){
     if(err){
       console.log("# API DELETE ", err)
     }

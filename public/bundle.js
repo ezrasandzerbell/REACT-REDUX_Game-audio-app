@@ -38608,16 +38608,16 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 // CART REDUCERS
 
 function contactReducers() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { contactMessages: [] };
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { messages: [] };
   var action = arguments[1];
 
   switch (action.type) {
     case "ADD_CONTACT_MESSAGE":
-      return _extends({}, state, { contactMessages: [].concat(_toConsumableArray(state.contactMessages), _toConsumableArray(action.payload)), msg: 'Message Sent!', style: 'success', validation: 'success' });
+      return _extends({}, state, { messages: [].concat(_toConsumableArray(state.messages), _toConsumableArray(action.payload)), msg: 'Message Sent!', style: 'success', validation: 'success' });
       break;
 
     case "INITIALIZE_CONTACT":
-      return _extends({}, state, { contactMessages: [].concat(_toConsumableArray(state.contactMessages)), msg: null, style: null, validation: null });
+      return _extends({}, state, { messages: [].concat(_toConsumableArray(state.messages)), msg: null, style: null, validation: null });
       break;
   }
   return state;
