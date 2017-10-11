@@ -30,3 +30,22 @@ button.link {
 .image-dim {
   opacity: 0.5;
 }
+
+.well-config {
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 10%;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.center-button {
+  margin-top: 25px;
+  margin-left: 40%;
+}
+
+.margin-bottom-sml {
+  margin-bottom: 45px;
+}
